@@ -1,7 +1,10 @@
-"# Git & GitHub Workshop" 
+"# Git & GitHub Workshop
  
-## Anv„nda Git-kommandon 
-- `git init` - Startar ett nytt lokalt Git-repo. 
-- `git add .` - L„gger till alla „ndringar i staging-arean. 
-- `git commit -m "meddelande"` - Sparar en ny commit med dina „ndringar. 
-- `git push` - Skickar upp dina commits till molnet. 
+
+
+## Useful Git Commands
+
+- `git init` - Initializes a new local Git repository.
+- `git add .` - Adds all changes to the staging area.
+- `git commit -m "message"` - Saves a new commit with your changes.
+- `git push` - Uploads your commits to the remote repository.
