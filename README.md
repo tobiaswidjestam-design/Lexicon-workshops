@@ -4,6 +4,7 @@
 
 - `mkdir <folder>` - Creates a new directory in the terminal.
 - `git init` - Initializes a new local Git repository.
+-  `git --version` - Verifies the installed Git version.
 - `echo "text" > <file>` - Creates a file with text or overwrites an existing one.
 - `git clone <url>` - Creates a local copy of a remote repository on your computer.
 - `git add .` - Adds all changes to the staging area.
