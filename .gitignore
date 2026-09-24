@@ -1,0 +1,14 @@
+# Ignorera lösenord och konfigfiler med känslig info
+passwords.txt
+*.env
+config.json
+
+# Operativsystemets egna skräpfiler
+.DS_Store
+Thumbs.db
+
+# Kompilerade filer / bygg-mappar (vanligt i Java/C++)
+bin/
+out/
+target/
+build/
