@@ -5,35 +5,28 @@ import java.util.Scanner;
 /**
  * Workshop Week 41 - Lexicon Cafe Application
  *
- * Demonstrates basic input/output, control flow, arithmetic operations,
- * and organizing application logic into focused, single-responsibility methods.
+ * Includes Challenge 2: Input Validation & Error Handling.
+ * Guards user input against non-numeric text (e.g. typing "tre" instead of 3),
+ * out-of-range choices, non-positive quantities, and invalid loyalty answers.
  */
 public class CafeApp {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        // 1. Greet the customer and request name
-        System.out.print("Welcome! What is your name? ");
-        String customerName = scanner.nextLine().trim();
-
+        // 1. Greet customer with validated non-empty name
+        String customerName = getValidCustomerName(scanner);
         System.out.println("Hi " + customerName + "! Here is our menu:\n");
         displayMenu();
 
-        // 2. Select menu item and quantity
-        System.out.print("Enter item number (1-5): ");
-        int choice = scanner.nextInt();
+        // 2. Select menu item and quantity (safe from crashes!)
+        int choice = getValidItemChoice(scanner);
+        int quantity = getValidQuantity(scanner);
 
-        System.out.print("How many? ");
-        int quantity = scanner.nextInt();
+        // 3. Inquire about loyalty membership (strictly yes/no)
+        boolean isMember = getValidLoyaltyStatus(scanner);
 
-        // 3. Inquire about loyalty membership
-        System.out.print("Loyalty member? (yes/no): ");
-        scanner.nextLine(); // Consume trailing newline left by nextInt()
-        String loyaltyInput = scanner.nextLine().trim().toLowerCase();
-        boolean isMember = loyaltyInput.equals("yes");
-
-        // 4. Perform calculations using dedicated helper methods
+        // 4. Perform calculations via dedicated helper methods
         String itemName = getItemName(choice);
         double unitPrice = getItemPrice(choice);
         double subtotal = calculateSubtotal(unitPrice, quantity);
@@ -49,7 +42,81 @@ public class CafeApp {
     }
 
     // =========================================================================
-    // Helper Methods
+    // Challenge 2: Safe Input Validation Methods (No more crashes!)
+    // =========================================================================
+
+    /**
+     * Prompts for customer name and ensures it is not left blank.
+     */
+    public static String getValidCustomerName(Scanner scanner) {
+        while (true) {
+            System.out.print("Welcome! What is your name? ");
+            String name = scanner.nextLine().trim();
+            if (!name.isEmpty()) {
+                return name;
+            }
+            System.out.println("Error: Name cannot be empty. Please enter your name.\n");
+        }
+    }
+
+    /**
+     * Safely reads the menu item number (1-5).
+     * Catches words like "tre" or invalid numbers and asks again instead of crashing.
+     */
+    public static int getValidItemChoice(Scanner scanner) {
+        while (true) {
+            System.out.print("Enter item number (1-5): ");
+            String input = scanner.nextLine().trim();
+            try {
+                int choice = Integer.parseInt(input);
+                if (choice >= 1 && choice <= 5) {
+                    return choice;
+                }
+                System.out.println("Error: '" + choice + "' is not on the menu. Please enter a number between 1 and 5.\n");
+            } catch (NumberFormatException e) {
+                System.out.println("Error: '" + input + "' is not a valid number. Please type a number (1-5).\n");
+            }
+        }
+    }
+
+    /**
+     * Safely reads the quantity.
+     * Ensures input is numeric and greater than 0.
+     */
+    public static int getValidQuantity(Scanner scanner) {
+        while (true) {
+            System.out.print("How many? ");
+            String input = scanner.nextLine().trim();
+            try {
+                int qty = Integer.parseInt(input);
+                if (qty > 0) {
+                    return qty;
+                }
+                System.out.println("Error: Quantity must be at least 1.\n");
+            } catch (NumberFormatException e) {
+                System.out.println("Error: '" + input + "' is not a valid number. Please type a whole number.\n");
+            }
+        }
+    }
+
+    /**
+     * Safely reads loyalty status. Only accepts 'yes' or 'no'.
+     */
+    public static boolean getValidLoyaltyStatus(Scanner scanner) {
+        while (true) {
+            System.out.print("Loyalty member? (yes/no): ");
+            String input = scanner.nextLine().trim().toLowerCase();
+            if (input.equals("yes") || input.equals("y")) {
+                return true;
+            } else if (input.equals("no") || input.equals("n")) {
+                return false;
+            }
+            System.out.println("Error: Please answer 'yes' or 'no'.\n");
+        }
+    }
+
+    // =========================================================================
+    // Menu & Calculation Helper Methods
     // =========================================================================
 
     /**
