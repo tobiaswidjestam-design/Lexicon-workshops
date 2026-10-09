@@ -2,52 +2,58 @@ package se.lexicon.workshops.week41;
 
 import java.util.Scanner;
 
-/**
- * Workshop Week 41 - Lexicon Cafe Application
- *
- * Includes Challenge 2: Input Validation & Error Handling.
- * Guards user input against non-numeric text (e.g. typing "tre" instead of 3),
- * out-of-range choices, non-positive quantities, and invalid loyalty answers.
- */
 public class CafeApp {
 
+    // =========================================================================
+    // 1. THE MAIN METHOD (This is where the program starts)
+    // =========================================================================
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        // 1. Greet customer with validated non-empty name
+        int totalCustomers = 0;
+        double totalRevenue = 0.0;
+
+        System.out.println("=== WELCOME TO LEXICON CAFE ===");
+
+        // Ask for the first customer immediately
         String customerName = getValidCustomerName(scanner);
-        System.out.println("Hi " + customerName + "! Here is our menu:\n");
-        displayMenu();
 
-        // 2. Select menu item and quantity (safe from crashes!)
-        int choice = getValidItemChoice(scanner);
-        int quantity = getValidQuantity(scanner);
+        // Loop that runs as long as the customer does not type 'done'
+        while (customerName != null) {
+            totalCustomers++;
+            System.out.println("\nHi " + customerName + "! Here is our menu:\n");
+            displayMenu();
 
-        // 3. Inquire about loyalty membership (strictly yes/no)
-        boolean isMember = getValidLoyaltyStatus(scanner);
+            int choice = getValidItemChoice(scanner);
+            int quantity = getValidQuantity(scanner);
+            boolean isMember = getValidLoyaltyStatus(scanner);
 
-        // 4. Perform calculations via dedicated helper methods
-        String itemName = getItemName(choice);
-        double unitPrice = getItemPrice(choice);
-        double subtotal = calculateSubtotal(unitPrice, quantity);
-        double discount = calculateDiscount(subtotal, isMember);
-        double discountedSubtotal = subtotal - discount;
-        double vat = calculateVat(discountedSubtotal);
-        double total = calculateTotal(discountedSubtotal, vat);
+            double unitPrice = getItemPrice(choice);
+            double subtotal = calculateSubtotal(unitPrice, quantity);
+            double discount = calculateDiscount(subtotal, isMember);
+            double discountedSubtotal = subtotal - discount;
+            double vat = calculateVat(discountedSubtotal);
+            double total = calculateTotal(discountedSubtotal, vat);
 
-        // 5. Output the final formatted receipt
-        printReceipt(customerName, itemName, quantity, subtotal, discount, vat, total);
+            totalRevenue += total;
+
+            printReceipt(customerName, getItemName(choice), quantity, subtotal, discount, vat, total);
+
+            // Ask for the next customer or 'done' at the end of the loop
+            customerName = getNextCustomerOrDone(scanner);
+        }
+
+        // End-of-Day Summary when the loop ends
+        printEndOfDaySummary(totalCustomers, totalRevenue);
 
         scanner.close();
     }
 
+
     // =========================================================================
-    // Challenge 2: Safe Input Validation Methods (No more crashes!)
+    // 2. HELPER METHODS (Located outside main, but inside the CafeApp class)
     // =========================================================================
 
-    /**
-     * Prompts for customer name and ensures it is not left blank.
-     */
     public static String getValidCustomerName(Scanner scanner) {
         while (true) {
             System.out.print("Welcome! What is your name? ");
@@ -59,10 +65,21 @@ public class CafeApp {
         }
     }
 
-    /**
-     * Safely reads the menu item number (1-5).
-     * Catches words like "tre" or invalid numbers and asks again instead of crashing.
-     */
+    public static String getNextCustomerOrDone(Scanner scanner) {
+        while (true) {
+            System.out.print("\nNext customer name (or 'done' to close): ");
+            String name = scanner.nextLine().trim();
+
+            if (name.equalsIgnoreCase("done")) {
+                return null;
+            }
+            if (!name.isEmpty()) {
+                return name;
+            }
+            System.out.println("Error: Name cannot be empty. Please enter a name or type 'done'.");
+        }
+    }
+
     public static int getValidItemChoice(Scanner scanner) {
         while (true) {
             System.out.print("Enter item number (1-5): ");
@@ -79,10 +96,6 @@ public class CafeApp {
         }
     }
 
-    /**
-     * Safely reads the quantity.
-     * Ensures input is numeric and greater than 0.
-     */
     public static int getValidQuantity(Scanner scanner) {
         while (true) {
             System.out.print("How many? ");
@@ -99,9 +112,6 @@ public class CafeApp {
         }
     }
 
-    /**
-     * Safely reads loyalty status. Only accepts 'yes' or 'no'.
-     */
     public static boolean getValidLoyaltyStatus(Scanner scanner) {
         while (true) {
             System.out.print("Loyalty member? (yes/no): ");
@@ -115,13 +125,6 @@ public class CafeApp {
         }
     }
 
-    // =========================================================================
-    // Menu & Calculation Helper Methods
-    // =========================================================================
-
-    /**
-     * Displays the complete cafe menu with item numbers, names, and prices.
-     */
     public static void displayMenu() {
         System.out.println("==============================");
         System.out.println("       Lexicon Cafe");
@@ -134,9 +137,6 @@ public class CafeApp {
         System.out.println("==============================\n");
     }
 
-    /**
-     * Resolves the name of the selected menu item based on item number.
-     */
     public static String getItemName(int choice) {
         return switch (choice) {
             case 1 -> "Espresso";
@@ -148,9 +148,6 @@ public class CafeApp {
         };
     }
 
-    /**
-     * Resolves the unit price in SEK for the selected menu item.
-     */
     public static double getItemPrice(int choice) {
         return switch (choice) {
             case 1 -> 25.00;
@@ -162,45 +159,27 @@ public class CafeApp {
         };
     }
 
-    /**
-     * Computes the base price before any discounts or taxes.
-     */
     public static double calculateSubtotal(double price, int quantity) {
         return price * quantity;
     }
 
-    /**
-     * Calculates discount based on business rules:
-     * - Loyalty members receive 15% off base price (highest priority).
-     * - Non-members receive 10% off if order exceeds 150 SEK.
-     * - Otherwise, 0% discount.
-     */
     public static double calculateDiscount(double subtotal, boolean isMember) {
         if (isMember) {
-            return subtotal * 0.15; // 15% loyalty discount
+            return subtotal * 0.15;
         } else if (subtotal > 150.0) {
-            return subtotal * 0.10; // 10% volume discount for non-members
+            return subtotal * 0.10;
         }
         return 0.0;
     }
 
-    /**
-     * Calculates 12% VAT applied after discounts have been deducted.
-     */
     public static double calculateVat(double discountedAmount) {
-        return discountedAmount * 0.12; // 12% VAT rate
+        return discountedAmount * 0.12;
     }
 
-    /**
-     * Computes the final total payable amount (discounted amount + VAT).
-     */
     public static double calculateTotal(double discountedAmount, double vat) {
         return discountedAmount + vat;
     }
 
-    /**
-     * Prints a cleanly formatted receipt matching the assignment specification.
-     */
     public static void printReceipt(String customer, String item, int quantity,
                                     double subtotal, double discount, double vat, double total) {
         System.out.println("\n==============================");
@@ -210,7 +189,6 @@ public class CafeApp {
         System.out.println("Item      : " + item + " x " + quantity);
         System.out.printf("Subtotal  : %.2f SEK\n", subtotal);
 
-        // Only display discount row when a discount was actually applied
         if (discount > 0.0) {
             System.out.printf("Discount  : -%.2f SEK\n", discount);
         }
@@ -220,7 +198,17 @@ public class CafeApp {
         System.out.printf("TOTAL     : %.2f SEK\n", total);
         System.out.println("==============================");
         System.out.println("   Thank you, " + customer + "!");
-        System.out.println("   See you next time.");
         System.out.println("==============================");
+    }
+
+    public static void printEndOfDaySummary(int totalCustomers, double totalRevenue) {
+        System.out.println("\n==============================================");
+        System.out.println("            END-OF-DAY SUMMARY                ");
+        System.out.println("==============================================");
+        System.out.println("Total customers served : " + totalCustomers);
+        System.out.printf("Total revenue          : %.2f SEK\n", totalRevenue);
+        System.out.println("==============================================");
+        System.out.println(" Café is now closed. Have a great evening!");
+        System.out.println("==============================================");
     }
 }
