@@ -1,7 +1,5 @@
 package se.lexicon.workshops.week42;
 
-package se.lexicon.workshops.week42;
-
 public class DataStorageConverter {
 
     // Konstanter högst upp
