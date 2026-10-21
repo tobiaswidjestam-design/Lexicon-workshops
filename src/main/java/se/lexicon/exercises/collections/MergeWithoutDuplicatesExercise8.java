@@ -1,3 +1,5 @@
+package se.lexicon.exercises.collections;
+
 import java.util.LinkedHashSet;
 import java.util.List;
 

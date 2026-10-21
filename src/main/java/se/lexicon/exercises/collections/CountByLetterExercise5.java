@@ -1,3 +1,6 @@
+package se.lexicon.exercises.collections;
+
+
 import java.util.List;
 import java.util.Scanner;
 

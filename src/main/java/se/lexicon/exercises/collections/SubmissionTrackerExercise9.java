@@ -1,3 +1,5 @@
+package se.lexicon.exercises.collections;
+
 import java.util.HashSet;
 import java.util.List;
 
