@@ -18,7 +18,7 @@ code — plan first, then implement.
 | `workshops/week42` | Converter app — `LengthConverter` and `SpeedConverter` with a shared data-storage class |
 | `workshops/week43` | `ContactApp` — a contact management CLI backed by a `HashSet` |
 | `workshops/week44` | `Vehicle` — a class that validates its own fields |
-| `workshops/week45` | `Fruit` — a `Product` subclass, built on a feature branch and merged through a pull request |
+| `workshops/week45` | The vending machine group assignment — abstract `Product`, `Snack`/`Beverage`/`Fruit` subclasses, coin handling, a console UI and 7 JUnit 5 tests |
 
 56 Java files in total.
 

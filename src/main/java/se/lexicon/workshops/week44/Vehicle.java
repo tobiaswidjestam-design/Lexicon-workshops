@@ -71,7 +71,7 @@ public class Vehicle {
     }
 
     @Override
-    String toString() {
+    public String toString() {
         return "Vehicle{" +
                 "vehicleId='" + vehicleId + '\'' +
                 ", registrationNumber='" + registrationNumber + '\'' +
