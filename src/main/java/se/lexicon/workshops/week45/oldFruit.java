@@ -1,6 +1,6 @@
 package se.lexicon.workshops.week45;
 
-public class Fruit extends Product {
+public class oldFruit extends Product {
     private String origin;
 
     public Fruit(int id, String name, int price, int quantity, String origin) {
