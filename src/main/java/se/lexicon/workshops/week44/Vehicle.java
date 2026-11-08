@@ -1,7 +1,5 @@
 package se.lexicon.workshops.week44;
 
-package se.lexicon;
-
 import java.util.Objects;
 
 /**
