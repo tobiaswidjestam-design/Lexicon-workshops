@@ -70,6 +70,13 @@ public class Vehicle {
         return Objects.hash(vehicleId, registrationNumber);
     }
 
+    /**
+     * Returns a readable description of the vehicle.
+     * <p>
+     * Declared {@code public} because {@link Object#toString()} is public and Java
+     * does not allow an override to reduce visibility: a package-private method here
+     * fails to compile with "cannot override toString() in java.lang.Object".
+     */
     @Override
     public String toString() {
         return "Vehicle{" +
