@@ -1,7 +1,5 @@
 package se.lexicon.workshops.week44;
 
-package se.lexicon;
-
 import java.util.Objects;
 
 /**
@@ -73,7 +71,7 @@ public class Vehicle {
     }
 
     @Override
-    String toString() {
+    public String toString() {
         return "Vehicle{" +
                 "vehicleId='" + vehicleId + '\'' +
                 ", registrationNumber='" + registrationNumber + '\'' +
