@@ -22,7 +22,7 @@ public class ShoppingListExercise1 {
 
         // 4. Print the updated list
         IO.println("\n--- Updated Shopping List ---");
-        counter = 1; // Nollställer räknaren för den uppdaterade listan
+        counter = 1; // Resets the counter for the updated list
         for (var item : shoppingList) {
             IO.println(counter++ + ". " + item);
         }

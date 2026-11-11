@@ -16,7 +16,7 @@ public class ConverterApp {
                 case "1":
                     handleLengthConverter(scanner);
                     break;
-                case "2data": // eller bara 2
+                case "2data": // or just 2
                 case "2":
                     handleDataConverter(scanner);
                     break;

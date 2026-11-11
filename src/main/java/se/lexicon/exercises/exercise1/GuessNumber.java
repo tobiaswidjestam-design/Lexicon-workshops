@@ -11,7 +11,7 @@ public class GuessNumber {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         Random random = new Random();
 
-        // Generera ett slumpmässigt tal mellan 1 och 500
+        // Generate a random number between 1 and 500
         int targetNumber = random.nextInt(500) + 1;
         int guess = 0;
         int guessCount = 0;
@@ -19,7 +19,7 @@ public class GuessNumber {
         while (guess != targetNumber) {
             System.out.print("Enter your guess: ");
             guess = Integer.parseInt(reader.readLine());
-            guessCount++; // Öka antalet gissningar för varje försök
+            guessCount++; // Increment the number of guesses for each attempt
 
             if (guess > targetNumber) {
                 System.out.println("Too big!");

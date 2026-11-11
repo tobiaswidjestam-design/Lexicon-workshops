@@ -1,14 +1,14 @@
 package se.lexicon.workshops.week41;
 
 public class Order {
-    // 1. Fält för all orderdata
+    // 1. Fields for all order data
     private String customerName;
     private String item;
     private int quantity;
     private double price;
     private boolean isMember;
 
-    // Setters för att kunna sätta värdena från main
+    // Setters to be able to set values from main
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
     }
@@ -29,7 +29,7 @@ public class Order {
         this.isMember = isMember;
     }
 
-    // 2. Beräkningar
+    // 2. Calculations
     public double calculateSubtotal() {
         return price * quantity;
     }
@@ -37,16 +37,16 @@ public class Order {
     public double calculateDiscount() {
         double subtotal = calculateSubtotal();
         if (isMember) {
-            return subtotal * 0.15; // 15% rabatt för medlemmar
+            return subtotal * 0.15; // 15% discount for members
         } else if (subtotal > 150.0) {
-            return subtotal * 0.10; // 10% mängdrabatt över 150 kr
+            return subtotal * 0.10; // 10% volume discount over 150 kr
         }
         return 0.0;
     }
 
     public double calculateVat() {
         double discountedAmount = calculateSubtotal() - calculateDiscount();
-        return discountedAmount * 0.12; // 12% moms
+        return discountedAmount * 0.12; // 12% VAT
     }
 
     public double calculateTotal() {
@@ -54,7 +54,7 @@ public class Order {
         return discountedAmount + calculateVat();
     }
 
-    // 3. Kvittoutskrift (0 parametrar!)
+    // 3. Receipt printing (0 parameters!)
     public void printReceipt() {
         double subtotal = calculateSubtotal();
         double discount = calculateDiscount();

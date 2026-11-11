@@ -50,7 +50,7 @@ public class CafeApp {
     }
 
     // =========================================================================
-    // HELPER METHODS (Inmatning och meny)
+    // HELPER METHODS (Input and menu)
     // =========================================================================
 
     public static String getValidCustomerName(Scanner scanner) {

@@ -3,7 +3,7 @@ package se.lexicon.exercises.exercise1;
 public class ShoppingReceipt {
 
     public static void main(String[] args) {
-        // Artiklar, kvantiteter och priser
+        // Items, quantities and prices
         String item1 = "Apple";
         int qty1 = 2;
         double price1 = 15.00;
@@ -16,15 +16,15 @@ public class ShoppingReceipt {
         int qty3 = 3;
         double price3 = 18.00;
 
-        // Beräkna totalpriser per rad
+        // Calculate total prices per line
         double total1 = qty1 * price1;
         double total2 = qty2 * price2;
         double total3 = qty3 * price3;
 
-        // Beräkna grand total
+        // Calculate grand total
         double grandTotal = total1 + total2 + total3;
 
-        // Utskrift av kvittot
+        // Print the receipt
         System.out.println("========================================");
         System.out.println("                Receipt                 ");
         System.out.println("========================================");

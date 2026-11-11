@@ -14,7 +14,7 @@ public class ArithmeticOperations {
         System.out.print("Enter second number: ");
         int num2 = Integer.parseInt(reader.readLine());
 
-        // Beräkna och skriv ut de fyra räknesätten
+        // Calculate and print the four arithmetic operations
         System.out.println(num1 + " + " + num2 + " = " + (num1 + num2));
         System.out.println(num1 + " - " + num2 + " = " + (num1 - num2));
         System.out.println(num1 + " * " + num2 + " = " + (num1 * num2));
